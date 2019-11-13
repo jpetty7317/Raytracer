@@ -1,14 +1,16 @@
 ﻿  main.cpp
-c:\users\jpett\documents\visual studio 2017\projects\raytracer\raytracer\vec3.h(53): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
-c:\users\jpett\documents\visual studio 2017\projects\raytracer\raytracer\vec3.h(133): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
-c:\users\jpett\documents\visual studio 2017\projects\raytracer\raytracer\hitablelist.h(20): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
-c:\users\jpett\documents\visual studio 2017\projects\raytracer\raytracer\material.h(14): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
-c:\users\jpett\documents\visual studio 2017\projects\raytracer\raytracer\main.cpp(14): warning C4305: 'argument': truncation from 'double' to 'float'
-c:\users\jpett\documents\visual studio 2017\projects\raytracer\raytracer\main.cpp(24): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
-c:\users\jpett\documents\visual studio 2017\projects\raytracer\raytracer\main.cpp(25): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
-c:\users\jpett\documents\visual studio 2017\projects\raytracer\raytracer\main.cpp(25): warning C4305: 'argument': truncation from 'double' to 'float'
-c:\users\jpett\documents\visual studio 2017\projects\raytracer\raytracer\main.cpp(46): warning C4305: 'argument': truncation from 'double' to 'float'
-c:\users\jpett\documents\visual studio 2017\projects\raytracer\raytracer\main.cpp(47): warning C4305: 'argument': truncation from 'double' to 'float'
-c:\users\jpett\documents\visual studio 2017\projects\raytracer\raytracer\main.cpp(48): warning C4305: 'argument': truncation from 'double' to 'float'
-c:\users\jpett\documents\visual studio 2017\projects\raytracer\raytracer\main.cpp(49): warning C4305: 'argument': truncation from 'double' to 'float'
-  Raytracer.vcxproj -> C:\Users\jpett\Documents\Visual Studio 2017\Projects\Raytracer\x64\Debug\Raytracer.exe
+c:\users\jpett\source\repos\raytracer\raytracer\vec3.h(53): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+c:\users\jpett\source\repos\raytracer\raytracer\vec3.h(133): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+c:\users\jpett\source\repos\raytracer\raytracer\hitablelist.h(20): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+c:\users\jpett\source\repos\raytracer\raytracer\material.h(14): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+c:\users\jpett\source\repos\raytracer\raytracer\material.h(32): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+c:\users\jpett\source\repos\raytracer\raytracer\material.h(91): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+c:\users\jpett\source\repos\raytracer\raytracer\main.cpp(14): warning C4305: 'argument': truncation from 'double' to 'float'
+c:\users\jpett\source\repos\raytracer\raytracer\main.cpp(24): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+c:\users\jpett\source\repos\raytracer\raytracer\main.cpp(25): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+c:\users\jpett\source\repos\raytracer\raytracer\main.cpp(25): warning C4305: 'argument': truncation from 'double' to 'float'
+c:\users\jpett\source\repos\raytracer\raytracer\main.cpp(46): warning C4305: 'argument': truncation from 'double' to 'float'
+c:\users\jpett\source\repos\raytracer\raytracer\main.cpp(47): warning C4305: 'argument': truncation from 'double' to 'float'
+c:\users\jpett\source\repos\raytracer\raytracer\main.cpp(48): warning C4305: 'argument': truncation from 'double' to 'float'
+c:\users\jpett\source\repos\raytracer\raytracer\main.cpp(50): warning C4305: 'argument': truncation from 'double' to 'float'
+  Raytracer.vcxproj -> C:\Users\jpett\source\repos\Raytracer\x64\Debug\Raytracer.exe
