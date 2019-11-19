@@ -1,16 +1,26 @@
 ﻿  main.cpp
-c:\users\jpett\documents\visual studio 2017\projects\raytracer\raytracer\vec3.h(54): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
-c:\users\jpett\documents\visual studio 2017\projects\raytracer\raytracer\vec3.h(134): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
-c:\users\jpett\documents\visual studio 2017\projects\raytracer\raytracer\hitablelist.h(20): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
-c:\users\jpett\documents\visual studio 2017\projects\raytracer\raytracer\camera.h(9): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
-c:\users\jpett\documents\visual studio 2017\projects\raytracer\raytracer\camera.h(13): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
-c:\users\jpett\documents\visual studio 2017\projects\raytracer\raytracer\camera.h(14): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
-c:\users\jpett\documents\visual studio 2017\projects\raytracer\raytracer\material.h(14): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
-c:\users\jpett\documents\visual studio 2017\projects\raytracer\raytracer\material.h(32): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
-c:\users\jpett\documents\visual studio 2017\projects\raytracer\raytracer\material.h(91): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
-c:\users\jpett\documents\visual studio 2017\projects\raytracer\raytracer\main.cpp(14): warning C4305: 'argument': truncation from 'double' to 'float'
-c:\users\jpett\documents\visual studio 2017\projects\raytracer\raytracer\main.cpp(24): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
-c:\users\jpett\documents\visual studio 2017\projects\raytracer\raytracer\main.cpp(25): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
-c:\users\jpett\documents\visual studio 2017\projects\raytracer\raytracer\main.cpp(25): warning C4305: 'argument': truncation from 'double' to 'float'
-c:\users\jpett\documents\visual studio 2017\projects\raytracer\raytracer\main.cpp(46): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
-  Raytracer.vcxproj -> C:\Users\jpett\Documents\Visual Studio 2017\Projects\Raytracer\x64\Debug\Raytracer.exe
+c:\users\jpett\source\repos\raytracer\raytracer\vec3.h(58): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+c:\users\jpett\source\repos\raytracer\raytracer\vec3.h(138): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+c:\users\jpett\source\repos\raytracer\raytracer\hitablelist.h(20): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+c:\users\jpett\source\repos\raytracer\raytracer\camera.h(9): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+c:\users\jpett\source\repos\raytracer\raytracer\camera.h(18): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+c:\users\jpett\source\repos\raytracer\raytracer\material.h(11): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+c:\users\jpett\source\repos\raytracer\raytracer\material.h(29): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+c:\users\jpett\source\repos\raytracer\raytracer\material.h(88): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+c:\users\jpett\source\repos\raytracer\raytracer\main.cpp(15): warning C4305: 'argument': truncation from 'double' to 'float'
+c:\users\jpett\source\repos\raytracer\raytracer\main.cpp(25): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+c:\users\jpett\source\repos\raytracer\raytracer\main.cpp(26): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+c:\users\jpett\source\repos\raytracer\raytracer\main.cpp(26): warning C4305: 'argument': truncation from 'double' to 'float'
+c:\users\jpett\source\repos\raytracer\raytracer\main.cpp(37): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+c:\users\jpett\source\repos\raytracer\raytracer\main.cpp(38): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+c:\users\jpett\source\repos\raytracer\raytracer\main.cpp(38): warning C4305: 'argument': truncation from 'double' to 'float'
+c:\users\jpett\source\repos\raytracer\raytracer\main.cpp(39): warning C4305: 'argument': truncation from 'double' to 'float'
+c:\users\jpett\source\repos\raytracer\raytracer\main.cpp(41): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+c:\users\jpett\source\repos\raytracer\raytracer\main.cpp(41): warning C4305: 'argument': truncation from 'double' to 'float'
+c:\users\jpett\source\repos\raytracer\raytracer\main.cpp(44): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+c:\users\jpett\source\repos\raytracer\raytracer\main.cpp(44): warning C4305: 'argument': truncation from 'double' to 'float'
+c:\users\jpett\source\repos\raytracer\raytracer\main.cpp(47): warning C4305: 'argument': truncation from 'double' to 'float'
+c:\users\jpett\source\repos\raytracer\raytracer\main.cpp(54): warning C4305: 'argument': truncation from 'double' to 'float'
+c:\users\jpett\source\repos\raytracer\raytracer\main.cpp(55): warning C4305: 'argument': truncation from 'double' to 'float'
+c:\users\jpett\source\repos\raytracer\raytracer\main.cpp(78): warning C4305: 'initializing': truncation from 'double' to 'float'
+  Raytracer.vcxproj -> C:\Users\jpett\source\repos\Raytracer\x64\Debug\Raytracer.exe

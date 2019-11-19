@@ -6,6 +6,10 @@
 #include <stdlib.h>
 #include <iostream>
 
+double random() {
+	return (rand() / (RAND_MAX + 1.0));
+}
+
 class vec3
 {
 	public:

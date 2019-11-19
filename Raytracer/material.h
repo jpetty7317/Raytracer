@@ -4,9 +4,6 @@
 #include "ray.h"
 #include "hitable.h"
 
-double random() {
-	return (rand() / (RAND_MAX + 1.0));
-}
 
 vec3 randomInUnitSphere() {
 	vec3 p;

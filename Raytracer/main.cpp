@@ -3,6 +3,7 @@ using namespace std;
 #include <fstream>
 #include <random>
 #include <string>
+#include <chrono>
 #include "sphere.h"
 #include "hitablelist.h"
 #include "float.h"
@@ -26,29 +27,57 @@ vec3 color(const ray& r, hitable *world, int depth) {
 	}
 }
 
+hitable *random_scene() {
+	int n = 500;
+	hitable **list = new hitable*[n + 1];
+	list[0] = new sphere(vec3(0, -1000, 0), 1000, new lambertian(vec3(0.5, 0.5, 0.5)));
+	int i = 1;
+	for (int a = -11; a < 11; a++) {
+		for (int b = -11; b < 11; b++) {
+			float choose_mat = random();
+			vec3 center(a + 0.9 * random(), 0.2, b + 0.9 * random());
+			if ((center - vec3(4, 0.2, 0)).length() > 0.9) {
+				if (choose_mat < 0.8) { // diffuse
+					list[i++] = new sphere(center, 0.2, new lambertian(vec3(random() * random(), random() * random(), random() * random())));
+				}
+				else if (choose_mat < 0.95) { // metal
+					list[i++] = new sphere(center, 0.2, new metal(vec3(0.5*(1.0 + random()), 0.5*(1.0 + random()), 0.5*(1.0 + random())), 0.5 * random()));
+				}
+				else { // glass
+					list[i++] = new sphere(center, 0.2, new dielectric(1.5));
+				}
+			}
+		}
+	}
+
+	list[i++] = new sphere(vec3(0, 1, 0), 1.0, new dielectric(1.5));
+	list[i++] = new sphere(vec3(-4, 1, 0), 1.0, new lambertian(vec3(0.4, 0.2, 0.1)));
+	list[i++] = new sphere(vec3(4, 1, 0), 1.0, new metal(vec3(0.7,0.6,0.5), 0.0));
+
+	return new hitableList(list, i);
+}
+
 int main() 
 {
+	std::chrono::system_clock::time_point now = std::chrono::system_clock::now();
+
 	ofstream outputImage;
 	outputImage.open("output.ppm");
 
-	int nx = 800;
-	int ny = 400;
+	int nx = 1920;
+	int ny = 1080;
 	int ns = 100;
 
 	outputImage << "P3\n" << nx << " " << ny << "\n255\n";
 
-	/*vec3 lowerLeftCorner(-2.0, -1.0, -1.0);
-	vec3 horizontal(4.0, 0.0, 0.0);
-	vec3 vertical(0.0, 2.0, 0.0);
-	vec3 origin(0.0, 0.0, 0.0);*/
+	hitable *world = random_scene();
 
-	hitable *list[2];
-	float R = cos(M_PI / 4);
-	list[0] = new sphere(vec3(-R, 0.0, -1.0),R, new lambertian(vec3(0,0,1)));
-	list[1] = new sphere(vec3(R, 0.0, -1.0), R, new lambertian(vec3(1,0,0)));
-	hitableList *world = new hitableList(list, 2);
+	vec3 lookfrom(13, 2, 3);
+	vec3 lookat(0, 0, 0);
+	float dist_to_focus = 10.0;
+	float aperture = 0.1;
 
-	camera cam(90, float(nx)/float(ny));
+	camera cam(lookfrom, lookat, vec3(0, 1, 0), 20, float(nx) / float(ny), aperture, dist_to_focus);
 
 	for (int j = ny - 1; j >= 0; j--)
 	{
@@ -74,6 +103,12 @@ int main()
 	}
 
 	outputImage.close();
+	
+	cerr << "TIME TO RENDER: " << std::chrono::duration_cast<std::chrono::milliseconds>(std::chrono::system_clock::now() - now).count() << endl;
+
+	int x = 0;
+
+	cin >> x;
 
 	return 0;
 }
