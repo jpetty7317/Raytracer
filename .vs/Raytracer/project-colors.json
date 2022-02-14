@@ -1,0 +1,11 @@
+{
+  "Version": 1,
+  "ProjectMap": {
+    "8d15bd32-a117-414e-a85e-e5e035c59bd4": {
+      "ProjectGuid": "8d15bd32-a117-414e-a85e-e5e035c59bd4",
+      "DisplayName": "Raytracer",
+      "ColorIndex": 0
+    }
+  },
+  "NextColorIndex": 1
+}

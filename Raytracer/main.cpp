@@ -3,12 +3,20 @@ using namespace std;
 #include <fstream>
 #include <random>
 #include <string>
+#include <vector>
 #include <chrono>
+#include <regex>
+#include <thread>
 #include "sphere.h"
+#include "triangle.h"
 #include "hitablelist.h"
 #include "float.h"
 #include "camera.h"
 #include "material.h"
+
+struct face {
+	int index[3];
+};
 
 vec3 color(const ray& r, hitable *world, int depth) {
 	hitRecord rec;
@@ -27,82 +35,142 @@ vec3 color(const ray& r, hitable *world, int depth) {
 	}
 }
 
-hitable *random_scene() {
-	int n = 500;
-	hitable **list = new hitable*[n + 1];
+hitable* random_scene(vector<vec3> vertices, vector<face> faces) {
+	hitable **list = new hitable*[faces.size() + 1];
 	list[0] = new sphere(vec3(0, -1000, 0), 1000, new lambertian(vec3(0.5, 0.5, 0.5)));
-	int i = 1;
-	for (int a = -11; a < 11; a++) {
-		for (int b = -11; b < 11; b++) {
-			float choose_mat = random();
-			vec3 center(a + 0.9 * random(), 0.2, b + 0.9 * random());
-			if ((center - vec3(4, 0.2, 0)).length() > 0.9) {
-				if (choose_mat < 0.8) { // diffuse
-					list[i++] = new sphere(center, 0.2, new lambertian(vec3(random() * random(), random() * random(), random() * random())));
-				}
-				else if (choose_mat < 0.95) { // metal
-					list[i++] = new sphere(center, 0.2, new metal(vec3(0.5*(1.0 + random()), 0.5*(1.0 + random()), 0.5*(1.0 + random())), 0.5 * random()));
-				}
-				else { // glass
-					list[i++] = new sphere(center, 0.2, new dielectric(1.5));
-				}
-			}
-		}
-	}
 
-	list[i++] = new sphere(vec3(0, 1, 0), 1.0, new dielectric(1.5));
-	list[i++] = new sphere(vec3(-4, 1, 0), 1.0, new lambertian(vec3(0.4, 0.2, 0.1)));
-	list[i++] = new sphere(vec3(4, 1, 0), 1.0, new metal(vec3(0.7,0.6,0.5), 0.0));
+	lambertian* l = new lambertian(vec3(0.1, 0.5, 0.1));
+
+	int i = 1;
+	for (const face& face: faces){
+		vec3 v1 = vertices[face.index[0]];
+		vec3 v2 = vertices[face.index[1]];
+		vec3 v3 = vertices[face.index[2]];
+		list[i] = new triangle(v1, v2, v3, l);
+		i++;
+	}
 
 	return new hitableList(list, i);
 }
 
-int main() 
+vec3 extractVector(string s)
 {
-	std::chrono::system_clock::time_point now = std::chrono::system_clock::now();
+	std::regex regex("\\s+");
 
-	ofstream outputImage;
-	outputImage.open("output.ppm");
+	std::vector<std::string> out(
+		std::sregex_token_iterator(s.begin(), s.end(), regex, -1),
+		std::sregex_token_iterator()
+	);
 
-	int nx = 1920;
-	int ny = 1080;
-	int ns = 100;
+	char symbol = out[0][0];
+	float v1 = std::stof(out[1]);
+	float v2 = std::stof(out[2]);
+	float v3 = std::stof(out[3]);
 
-	outputImage << "P3\n" << nx << " " << ny << "\n255\n";
+	return vec3(v1, v2, v3);
+}
 
-	hitable *world = random_scene();
+face extractFace(string s)
+{
+	std::regex regex("\\s+");
 
-	vec3 lookfrom(13, 2, 3);
-	vec3 lookat(0, 0, 0);
-	float dist_to_focus = 10.0;
-	float aperture = 0.1;
+	std::vector<std::string> out(
+		std::sregex_token_iterator(s.begin(), s.end(), regex, -1),
+		std::sregex_token_iterator()
+	);
 
-	camera cam(lookfrom, lookat, vec3(0, 1, 0), 20, float(nx) / float(ny), aperture, dist_to_focus);
+	face ret;
+	ret.index[0] = std::stoi(out[1]) - 1;
+	ret.index[1] = std::stoi(out[2]) - 1;
+	ret.index[2] = std::stoi(out[3]) - 1;
 
-	for (int j = ny - 1; j >= 0; j--)
+	return ret;
+}
+
+void renderRow(int j, int range, int nx, int ny, int ns, camera cam, hitable* world, vector<face> *output)
+{
+	for (int y = j; y < range; y++)
 	{
 		for (int i = 0; i < nx; i++)
 		{
 			vec3 col(0, 0, 0);
 			for (int s = 0; s < ns; s++) {
-				float u = float(i + random()) / float(nx);
-				float v = float(j + random()) / float(ny);
+				float u = float(i) / float(nx);
+				float v = float(y) / float(ny);
 				ray r = cam.getRay(u, v);
-				vec3 p = r.point_at_parameter(2.0);
 				col += color(r, world, 0);
 			}
 
 			col /= float(ns);
 			col = vec3(sqrt(col[0]), sqrt(col[1]), sqrt(col[2]));
-			int ir = int(255.99 * col[0]);
-			int ig = int(255.99 * col[1]);
-			int ib = int(255.99 * col[2]);
+			face irgb;
+			irgb.index[0] = int(255.99 * col[0]);
+			irgb.index[1] = int(255.99 * col[1]);
+			irgb.index[2] = int(255.99 * col[2]);
 
-			outputImage << ir << " " << ig << " " << ib << "\n";
+			(*output)[y * nx + i] = irgb;
+		}
+	}
+}
+
+int main()
+{
+	ifstream obj("teapot.obj");
+	string s;
+	vector<vec3> vertices;
+	vector<face> faces;
+
+	while (!obj.eof()){
+		getline(obj, s);
+		
+		if (s[0] == 'v'){
+			vertices.push_back(extractVector(s));
+		}
+		else if (s[0] == 'f'){
+			faces.push_back(extractFace(s));
+		}
+	}
+
+	std::chrono::system_clock::time_point now = std::chrono::system_clock::now();
+
+	constexpr int nx = 1920;
+	constexpr int ny = 1080;
+	int ns = 100;
+
+	hitable *world = random_scene(vertices, faces);
+
+	vec3 lookfrom(0, 2, 20);
+	vec3 lookat(0, 2, 0);
+	float dist_to_focus = 20.0;
+	float aperture = 0.1;
+
+	camera cam(lookfrom, lookat, vec3(0, 1, 0), 20, float(nx) / float(ny), aperture, dist_to_focus);
+
+	vector<thread> thread_pool;
+	vector<face> output(nx * ny);
+
+	for (int j = 0; j < ny; j += 5)
+	{
+		thread_pool.emplace_back(renderRow, j, j + 5, nx, ny, ns, cam, world, &output); 
+	}
+
+	for (auto& thread : thread_pool) {
+		thread.join();
+	}
+
+	ofstream outputImage;
+	outputImage.open("output.ppm");
+	outputImage << "P3\n" << nx << " " << ny << "\n255\n";
+
+	for (int y = ny - 1; y >= 0; y--) {
+		for (int x = 0; x < nx; x++){
+			face pixel = output[x + y * nx];
+			outputImage << pixel.index[0] << " " << pixel.index[1] << " " << pixel.index[2] << "\n";
 		}
 	}
 
 	outputImage.close();
+
 	
 	cerr << "TIME TO RENDER: " << std::chrono::duration_cast<std::chrono::milliseconds>(std::chrono::system_clock::now() - now).count() << endl;
 
